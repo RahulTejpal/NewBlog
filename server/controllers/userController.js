@@ -20,8 +20,21 @@ const registerUser = async (req,res) => {
 
         if(toasts.length>0) return res.status(400).json(toasts);
 
+        let newUser = await User.findOne({email}); //to check if user already exists
+
+        if(newUser) return res.status(400).json([{message: 'User already exists',type: 'error'}]); 
+
+        newUser = new User(req.body);
+
+        //Hash password before saving into database
+        const salt = await bcrypt.genSalt(10);
+
+        newUser.password = await bcrypt.hash(password,salt);
+
+        await newUser.save();
+
         
-        res.json(req.body)
+        res.json(newUser)
     }
     catch(err){
         console.error('Error: ${err.message}'.bgRed.underline.bold);
