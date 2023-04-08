@@ -7,8 +7,10 @@ const{
     getProfile
 } = require('../controllers/userController')
 
-router.post('/register',registerUser)
-router.post('/login',loginUser)
-router.get('/profile',getProfile)
+router.post('/register',registerUser); //used in url of thunderclient
+
+router.post('/login',loginUser);  //used in url of thunderclient
+
+router.get('/profile',getProfile);   //used in url of thunderclient
 
 module.exports = router;
