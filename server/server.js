@@ -25,5 +25,6 @@ const connectDB=async()=>{ //connection to db
 connectDB();
 
 app.use ('/api/users', require('./routes/userRoutes')); //when we call /api/users our server is going to recieve it, it's going to look into our routes folder, it's going to pull up userRoutes and userRoutes will act like a traffic cop as it will forward it to wherever it needs to go
+app.use('/api/blogs',require('./routes/blogRoutes'));
 
 app.listen(PORT,()=>console.info(`Server in running on port ${PORT}`.bgGreen.underline.bold));

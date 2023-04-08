@@ -105,7 +105,7 @@ const loginUser = async (req,res) => {
 //@route GET api/users/profile
 //@desc Get user profile
 //@access Private
-const getProfile = async (req,res) => {
+const getProfile = async (req,res) => { //getting the user profile through the token & user only have access to their own profile
     
     try{
         const user = await User.findById(req.user.id).select('-password').select('-__v').select('-createdAt').select('-updatedAt');
