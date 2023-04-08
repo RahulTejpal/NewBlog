@@ -34,7 +34,23 @@ const registerUser = async (req,res) => {
         await newUser.save();
 
         
-        res.json(newUser)
+        
+
+        const payload = {
+            user: {
+                id: newUser._id
+            }
+        }
+
+        jwt.sign(payload, process.env.JWT_SECRET,{
+            expiresIn: 28800
+        }, (err,token) =>{
+            if(err) throw err;
+            res.json(token);
+        }
+        )
+
+        
     }
     catch(err){
         console.error('Error: ${err.message}'.bgRed.underline.bold);
@@ -47,7 +63,20 @@ const registerUser = async (req,res) => {
 //@access Public
 const loginUser = async (req,res) => {
     try{
-        res.send('Login a user');
+        const {email,password} = req.body;
+        let toasts = [];
+        if(!password) toasts.push({message: 'A valid password is required', type: 'error'});
+        if(password && (password.length<8 || password.length>12)) toasts.push({message: 'Password must be at least 8-12 characters long',type:'erroe'});
+
+        if(!email || !validatedEmail(email)) toasts.push({message: 'A valid email is required', type: 'error'});
+        
+        if(toasts.length>0) return res.status(400).json(toasts);
+
+        let user = await User.findOne({email});
+
+        if(!user) return res.status(400).json([{message: 'User does not exist',type:'error'}]);
+
+        res.json(req.body);
     }
     catch(err){
         console.error('Error: ${err.message}'.bgRed.underline.bold);
