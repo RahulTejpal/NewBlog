@@ -76,7 +76,25 @@ const loginUser = async (req,res) => {
 
         if(!user) return res.status(400).json([{message: 'User does not exist',type:'error'}]);
 
-        res.json(req.body);
+        const isMatch = await bcrypt.compare(password, user.password); //matching the password
+
+        if(!isMatch) return res.status(400).json([{message: 'Invalid credentials',type: 'error'}]); //if password doesn't match
+
+        const payload = {
+            user: {
+                id: user._id
+            }
+        }
+
+        jwt.sign(payload, process.env.JWT_SECRET,{
+            expiresIn: 28800
+        }, (err,token) =>{
+            if(err) throw err;
+            res.json(token);
+        }
+        )
+
+        
     }
     catch(err){
         console.error('Error: ${err.message}'.bgRed.underline.bold);
