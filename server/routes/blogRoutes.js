@@ -14,9 +14,9 @@ router.get('/',[auth],getBlogs);
 
 router.post('/',[auth],createBlog); 
 
-router.put('/',[auth],updateBlog);  
+router.put('/:id',[auth],updateBlog);  
 
-router.get('/:id',[auth],deleteBlog);  
+router.delete('/:id',[auth],deleteBlog);  
 
 
 

@@ -24,8 +24,12 @@ const createBlog = async (req,res) => {
             content,
             user: req.user.id //this will be fetched with the help of the token that we sent in the header of the thunder client
         });
-        const blog = await newBlog.save();
-        res.json(blog);
+
+        await newBlog.save();
+
+        if(!newBlog) return res.status(400).json([{message: 'Blog not created', type: 'error'}]);
+
+        res.json(newBlog);
     }
     catch(err){
         console.error('ERROR: ${err.message}'.bgRed.underline.bold);
@@ -36,7 +40,7 @@ const createBlog = async (req,res) => {
 const updateBlog = async (req,res) =>{
     try{
         const {title,content} = req.body;
-        const blog = await Blog.findOneAndUpdate({_id: req.params.id, user: req.user.id}, {title,content},{new: true});
+        const blog = await Blog.findOneAndUpdate({_id: req.params.id, user: req.user.id}, {title,content},{new: true}); //node is gonna pull up the id from blog id from request parameters && its also gonna pull user the token
         res.json(blog);
     }
     catch(err){
@@ -48,10 +52,12 @@ const updateBlog = async (req,res) =>{
 
 const deleteBlog = async (req,res) =>{
     try{
-        res.send('deleting blog')
+        const blog = await Blog.findOneAndDelete({_id: req.params.id, user: req.user.id});
+        res.json([{message: 'Blog deleted', type: 'success'}]);
     }
     catch(error){
-
+        console.error('ERROR: ${err.message}'.bgRed.underline.bold);
+        res.status(500).send('Server Error');
     }
 }
 
