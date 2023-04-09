@@ -22,7 +22,7 @@ const createBlog = async (req,res) => {
         const newBlog = new Blog({
             title,
             content,
-            user: req.user.id
+            user: req.user.id //this will be fetched with the help of the token that we sent in the header of the thunder client
         });
         const blog = await newBlog.save();
         res.json(blog);

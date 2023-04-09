@@ -16,7 +16,7 @@ router.post('/',[auth],createBlog);
 
 router.put('/',[auth],updateBlog);  
 
-router.get('/',[auth],deleteBlog);  
+router.get('/:id',[auth],deleteBlog);  
 
 
 
