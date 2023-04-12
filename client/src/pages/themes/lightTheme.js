@@ -5,7 +5,6 @@ export default createTheme({
         MuiTextField: {
             defaultProps: {
                 size: "small",
-                disabled: true,
                 variant: "outlined",
                 margin: "dense",
                 fullWidth: true,

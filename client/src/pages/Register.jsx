@@ -1,7 +1,8 @@
 import { useState } from 'react' 
 import {
     Grid, TextField, Button, Typography,
-    CssBaseline, Container, Box, Avatar
+    CssBaseline, Container, Box, Avatar,
+    InputAdornment
 } from '@mui/material'
 
 import {useNavigate, Link} from 'react-router-dom'
@@ -16,6 +17,13 @@ export default function Register(){
     const [user,setUser] = useState({
         firstName: 'Peter', lastName: 'Pan',email: 'peterpan@mail.com',password: 'Password123',confirmPassword: 'Password123',
     })
+
+    const [showPassword,setShowPassword] = useState({
+        password: false, confirmPassword: false
+    })
+    const handleRegister = () =>{
+        alert(JSON.stringify(user,null,4))
+    }
     return(
        <Container maxWidth="xs">
         <CssBaseline/>
@@ -59,27 +67,41 @@ export default function Register(){
                 <TextField 
                     placeholder='Enter Password' name='password'
                     label="password" value={user.password} 
+                    type={showPassword.password ? 'text': 'password'}
                     onChange={(e) => setUser({...user, password: e.target.value})}
+                    InputProps={{
+                        endAdornment: <InputAdornment position="end" onClick={()=> setShowPassword({...showPassword,password: !showPassword.password})}>
+                            {!showPassword.password ? <VisibilityOutlinedIcon/> : <VisibilityOffOutlinedIcon/>}
+                        </InputAdornment>,
+                      }}
                 />
             </Grid>
             <Grid  item xs={12} >
                 <TextField 
                     placeholder='Confirm Password' name='confirmPassword'
                     label="confirmPassword" value={user.confirmPassword} 
+                    type={showPassword.confirmPassword ? 'text': 'password'}
                     onChange={(e) => setUser({...user, confirmPassword: e.target.value})}
+                    InputProps={{
+                        endAdornment: <InputAdornment position="end" onClick={()=> setShowPassword({...showPassword,confirmPassword: !showPassword.confirmPassword})}>
+                            {!showPassword.confirmPassword ? <VisibilityOutlinedIcon/> : <VisibilityOffOutlinedIcon/>}
+                        </InputAdornment>,
+                    }}
                 />
             </Grid>
             
                
            
         </Grid>
-        <Button fullWidth sx={{
+        <Button 
+        onClick={handleRegister}
+        fullWidth sx={{
             mt: 3, mb: 2
         }}>
             Register
             </Button>
 
-        <Grid container justify="flex-end">
+        <Grid container justifyContent="flex-end">
             <Grid item>
                 <Link to="/login">
                     Already have an account? Sign in
