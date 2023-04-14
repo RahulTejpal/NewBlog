@@ -7,6 +7,7 @@ import {
 
 import {useNavigate, Link} from 'react-router-dom'
 import {toast} from 'react-toastify'
+import Copyright from '../components/Copyright'
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
@@ -57,7 +58,7 @@ export default function Register(){
 
         <Box
             sx={{
-                marginTop: 8,display: 'flex',
+                marginTop: 8,display: 'flex', mb: 6,
                 flexDirection: 'column', alignItems: 'center'
             }}
         >
@@ -136,6 +137,7 @@ export default function Register(){
             </Grid>
             </Grid>    
         </Box>
+        <Copyright sx={{mt:4}} />
         
        </Container>
     )
