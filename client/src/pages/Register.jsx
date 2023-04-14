@@ -1,4 +1,4 @@
-import { useState } from 'react' 
+import { useState, useEffect } from 'react' 
 import {
     Grid, TextField, Button, Typography,
     CssBaseline, Container, Box, Avatar,
@@ -6,14 +6,16 @@ import {
 } from '@mui/material'
 
 import {useNavigate, Link} from 'react-router-dom'
+import {toast} from 'react-toastify'
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { common } from '@mui/material/colors';
 
-
+import { useAuth} from '../middleware/contextHooks';
 export default function Register(){
+    const  {registerUser, clearErrors, toasts, isAuthenticated} = useAuth();
     const navigate = useNavigate()
     const [user,setUser] = useState({
         firstName: 'Peter', lastName: 'Pan',email: 'peterpan@mail.com',password: 'Password123',confirmPassword: 'Password123',
@@ -22,18 +24,29 @@ export default function Register(){
     const [showPassword,setShowPassword] = useState({
         password: false, confirmPassword: false
     })
+
+    useEffect(() => {if(isAuthenticated) navigate('/blogs')
+    if(toasts){
+        toasts.forEach(ele=> {
+            toast(ele.message,{
+                type: ele.type
+            })
+        });
+    }
+}, [toasts,isAuthenticated,clearErrors,navigate])
+
     const handleRegister = () =>{
         const {firstName,lastName,email,password,confirmPassword} = user
         if(!firstName|| !lastName || !email || !password || !confirmPassword){
-            alert('Please fill all the fields')
+            toast('Please fill all the fields',{type: 'error'})
             return
         }
         if(password !== confirmPassword){
-            alert('Passwords do not match')
+            toast('Passwords do not match',{type: 'error'})
             return
         }
 
-        alert('Registration Successful')
+        registerUser(user)
     }
 
     

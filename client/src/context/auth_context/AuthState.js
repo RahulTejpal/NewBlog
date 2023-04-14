@@ -11,13 +11,14 @@ export default function AuthState(props){
         token: localStorage.getItem('token'),
         currentUser: null,
         toasts: null,
+        isAuthenticated: null,
     };
 
     const [state,dispatch] = useReducer(authReducer,initialState);
 
     const config = {
         headers: {
-            'Context-Type': 'application/json',
+            'Content-Type': 'application/json',
             'x-auth-token': localStorage.getItem('token'),
         }
     }
@@ -52,7 +53,7 @@ export default function AuthState(props){
         catch(err){
             console.log(err.response.data);
             dispatch({
-                type: ActionTypes.Login_FAIL,
+                type: ActionTypes.LOGIN_FAIL,
                 payload: err.response.data,
             })
         }
@@ -93,6 +94,7 @@ export default function AuthState(props){
             token: state.token,
             currentUser: state.currentUser,
             toasts: state.toasts,
+            isAuthenticated: state.isAuthenticated,
             registerUser,
             loginUser,
             logoutUser,
