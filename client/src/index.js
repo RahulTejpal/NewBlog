@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import 'react-toastify/dist/ReactToastify.css';
-//import 'simplebar/dist/simplebar.min.css'
+import 'simplebar-react/dist/simplebar.min.css';
 
 import {ThemeProvider} from '@mui/material/styles'
 import lightTheme from './pages/themes/lightTheme';
