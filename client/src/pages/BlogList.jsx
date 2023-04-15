@@ -12,6 +12,8 @@ import { useBlog } from '../middleware/contextHooks'
 import MainContainer from '../components/MainContainer'
 import { toast } from 'react-toastify';
 
+import BlogCard from '../components/BlogCard'
+
 export default function BlogList(){
     const {getBlogs,toasts,clearErrors,blogs} = useBlog();
     const navigate = useNavigate();
@@ -42,11 +44,11 @@ export default function BlogList(){
                                 <Button fullWidth={false} onClick={()=> navigate('/newblog')}>Create Blog</Button>
                             </Stack>
 
-                            <List>
-                                {myBlogs.map(blog=> (
+                            <List sx={{backgroundColor: 'silver', borderRadius: 5, mt: 3}}>
+                                {myBlogs?.map(blog=> (
                                     <Link to={'/blogs/${blog._id}'} key={blog._id}>
                                         <ListItem>
-                                            <Tooltip title={blog.title} >
+                                            <Tooltip title={blog.title} placement='right'>
                                                 <ListItemText primary={blog.title} />
                                             </Tooltip>
                                         </ListItem>
@@ -54,6 +56,14 @@ export default function BlogList(){
                                 ))}
                             </List>
                         
+                    </Grid>
+
+                    <Grid item xs={12} md={9}>
+                            <Masonry columns={2}>
+                                    {myBlogs?.map(blog=> (
+                                        <BlogCard blog={blog} key={blog._id} />
+                                    ))}
+                            </Masonry>
                     </Grid>
                 </Grid>
            </Container>
