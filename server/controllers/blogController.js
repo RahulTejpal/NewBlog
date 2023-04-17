@@ -11,7 +11,22 @@ const getBlogs = async (req,res) => {
         res.json(blogs);
     }
     catch(err){
-        console.error('ERROR: ${err.message}'.bgRed.underline.bold);
+        console.error(`ERROR: ${err.message}`.bgRed.underline.bold);
+        res.status(500).send('Server Error');
+    }
+}
+
+const getBlogById = async (req,res) => {
+    try{
+        const blog = await Blog.findOne({_id: req.params.id, user: req.user.id});
+
+        if(!blog) return res.status(404).json([{
+            message: 'Blog Not Found',
+            type: 'error'
+        }])
+        res.json(blog);
+    } catch(err){
+        console.error(`ERROR: ${err.message}`.bgRed.underline.bold);
         res.status(500).send('Server Error');
     }
 }
@@ -32,7 +47,7 @@ const createBlog = async (req,res) => {
         res.json(newBlog);
     }
     catch(err){
-        console.error('ERROR: ${err.message}'.bgRed.underline.bold);
+        console.error(`ERROR: ${err.message}`.bgRed.underline.bold);
         res.status(500).send('Server Error');
     }
 }
@@ -45,7 +60,7 @@ const updateBlog = async (req,res) =>{
     }
     catch(err){
 
-        console.error('ERROR: ${err.message}'.bgRed.underline.bold);
+        console.error(`ERROR: ${err.message}`.bgRed.underline.bold);
         res.status(500).send('Server Error');
     }
 }
@@ -59,7 +74,7 @@ const deleteBlog = async (req,res) =>{
         });
     }
     catch(error){
-        console.error('ERROR: ${err.message}'.bgRed.underline.bold);
+        console.error(`ERROR: ${err.message}`.bgRed.underline.bold);
         res.status(500).send('Server Error');
     }
 }
@@ -68,5 +83,6 @@ module.exports = {
     deleteBlog,
     updateBlog,
     createBlog,
-    getBlogs
+    getBlogs,
+    getBlogById
 }

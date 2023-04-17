@@ -19,6 +19,10 @@ export const CLEAR_BLOGS = 'CLEAR_BLOGS';
 
 //THIS GIVES US A BRIDGE BETWEEN FRONT-END AND BACK-END
 
+//These constants define the types of actions that can be dispatched by the front-end to the back-end, and they are used to update the state of the application in response to server-side changes.
+
+
+
 
 
 

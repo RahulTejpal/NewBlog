@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express') //later used defining routes and handling middleware
 const router = express.Router()
 const auth = require('../middleware/authMiddleware');
 

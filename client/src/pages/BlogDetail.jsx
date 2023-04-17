@@ -4,11 +4,33 @@ import { useParams } from 'react-router-dom'
 import {
     Container, Paper,Button, TextField, Stack, IconButton,Typography
 } from '@mui/material'
+import {toast} from 'react-toastify'
+
+import { useBlog } from '../middleware/contextHooks' 
 
 export default function BlogDetail(){
     const {id} = useParams();
+    const {currentBlog, getBlogById, toasts, clearToasts} = useBlog();
 
     const [blog,setBlog] = useState(null);
+
+    useEffect(() =>{
+        if(!currentBlog || currentBlog?._id!==id){
+            getBlogById(id);
+        }
+
+        if(currentBlog?._id === id){
+            setBlog(currentBlog);
+        }
+        
+
+        // if(toasts){
+        //     toasts.forEach(ele => {
+        //         toast(ele.message, {type: ele.type})
+        //     })
+        // }
+        
+    }, [currentBlog, id, toasts, clearToasts, getBlogById])
     return(
         <MainContainer>
             <Container maxWidth='md' sx={{mt:3,mb:5}}>

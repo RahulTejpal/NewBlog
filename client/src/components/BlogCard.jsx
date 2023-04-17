@@ -22,7 +22,7 @@ export default function BlogCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={()=> navigate('/blogs/${props.blog._id}')}>Read More</Button>
+        <Button size="small" onClick={()=> navigate(`/blogs/${props.blog._id}`)}>Read More</Button>
       </CardActions>
     </Card>
   );

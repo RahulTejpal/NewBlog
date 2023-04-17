@@ -35,7 +35,8 @@ export default (state,action) => {
         case ActionTypes.GET_BLOG_BY_ID:
             return{
                 ...state,
-                toasts: action.payload
+                currentBlog: action.payload,
+
             }    
 
         case ActionTypes.CLEAR_ERRORS:

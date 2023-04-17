@@ -46,7 +46,7 @@ export default function BlogList(){
 
                             <List sx={{backgroundColor: 'silver', borderRadius: 5, mt: 3}}>
                                 {myBlogs?.map(blog=> (
-                                    <Link to={'/blogs/${blog._id}'} key={blog._id}>
+                                    <Link to={`/blogs/${blog._id}`} key={blog._id}>
                                         <ListItem>
                                             <Tooltip title={blog.title} placement='right'>
                                                 <ListItemText primary={blog.title} />
