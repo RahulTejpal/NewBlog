@@ -7,19 +7,20 @@ export const AuthContext = createContext();
 
 export default function AuthState(props){
 
-    const initialState = {
-        token: localStorage.getItem('token'),
+    const initialState = { //defines the initial state of authentication context including the following properties
+        token: localStorage.getItem('token'), 
         currentUser: null,
         toasts: null,
         isAuthenticated: null,
     };
 
-    const [state,dispatch] = useReducer(authReducer,initialState);
+    //authReducer called everytime an action is dispatched
+    const [state,dispatch] = useReducer(authReducer,initialState);//dispatch func called to dispatch actions to reducer funcn which updates the 'state' accordingly
 
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'x-auth-token': localStorage.getItem('token'),
+    const config = {//configuartion object used to set headers for axios request
+        headers: { //contains 2 headers
+            'Content-Type': 'application/json', //content being sent in the request is in JSON format.
+            'x-auth-token': localStorage.getItem('token'), //used to send the authentication token in the request
         }
     }
 
@@ -27,10 +28,10 @@ export default function AuthState(props){
 
     const registerUser = async (userData) => {
         try{
-            const res = await axios.post('/api/users/register', userData, config);
+            const res = await axios.post('/api/users/register', userData, config);//POST req to backend server at the /api/users/register endpoint with the provided userData and config.
             dispatch({
-                type: ActionTypes.REGISTER_SUCCESS,
-                payload: res.data
+                type: ActionTypes.REGISTER_SUCCESS, //if request successful funcn dispatches this action
+                payload: res.data // with response data as payload
             })
         }
         catch(err){

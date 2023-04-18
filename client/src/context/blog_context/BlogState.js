@@ -21,7 +21,7 @@ export default function BlogState(props){
         }
     }
 
-    const getBlogs = async () => {
+    const getBlogs = async () => { //get all blogs
         try{
             const res = await axios.get('/api/blogs',config);
             dispatch({
@@ -39,7 +39,7 @@ export default function BlogState(props){
         }
     }
 
-    const getBlogById = async (blogId) => {
+    const getBlogById = async (blogId) => { //get a particular blog
         try{
             const res = await axios.get(`/api/blogs/${blogId}`,config);
             dispatch({
@@ -57,9 +57,39 @@ export default function BlogState(props){
 
     const createBlog = async (blogData) => {}
 
-    const updateBlog = async (blogData) => {}
+    const updateBlog = async (blogData) => {
+        try{
+            const res = await axios.put(`/api/blogs/${blogData._id}`,blogData,config);//gonna get blog id from blogData, config we have token used to authenticate
+            dispatch({
+                type: ActionTypes.UPDATE_BLOG,
+                payload: res.data
+            })
+        }
+        catch(err){
+            console.log(err.response.data);
+            dispatch({
+                type: ActionTypes.BLOG_FAIL,
+                payload: err.response.data,
+            })
+        }
+    }
 
-    const deleteBlog = async (blogId) => {}
+    const deleteBlog = async (blogId) => {
+        try{
+            const res = await axios.delete(`/api/blogs/${blogId}`,config);
+            dispatch({
+                type: ActionTypes.BLOG_DELETE,
+                payload: res.data
+            })
+        }
+        catch(err){
+            console.log(err.response.data);
+            dispatch({
+                type: ActionTypes.BLOG_FAIL,
+                payload: err.response.data,
+            })
+        }
+    }
 
     const clearErrors = async () => {}
 

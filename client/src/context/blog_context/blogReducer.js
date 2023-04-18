@@ -3,7 +3,7 @@ import * as ActionTypes from '../ContextActions'
 export default (state,action) => {
     switch (action.type){
         case ActionTypes.NEW_BLOG_SUCCESS:
-            let blogs = state.blogs ? state.blogs :[];
+            let blogs = state.blogs ? state.blogs :[]; //checks if the state.blogs array exists, and if not, sets it to an empty array.
             return{
                 ...state,
                 blogs: [...blogs,action.payload]
@@ -18,9 +18,10 @@ export default (state,action) => {
                         ...state,
                         blogs: action.payload
                     }
-        case ActionTypes.UPDATE_BLOG_SUCCESS:
+        case ActionTypes.UPDATE_BLOG:
                 return{
                             ...state,
+                            currentBlog: action.payload,
                             blogs: state.blogs.map(blog => blog._id === action.payload._id ? action.payload: blog)// we're going to iterate thru our state blogs,we're gonna look for the blog thru blog._id i.e we're going to compare what we have(blog._id) vs the payload that we return, if the ids match then we update that with the new payload otherwise we'll return the blog
                         }   
                         

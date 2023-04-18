@@ -18,13 +18,13 @@ import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Button } from '@mui/material';
 
-const authenticated = ['Blogs', 'Profile']
+const authenticated = ['Blogs', 'Profile'] //user must be logged in to be authenticated and access the pages
 
 
 
 export default function PrimarySearchAppBar() {
-  const {logoutUser} = useAuth()  
-  const {clearBlogs} = useBlog()
+  const {logoutUser} = useAuth()  //func to logout authenticated user
+  const {clearBlogs} = useBlog()  //func that clears list of blogs fetched from server
   const navigate  = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =

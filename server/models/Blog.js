@@ -21,4 +21,6 @@ const BlogSchema = new mongoose.Schema ({
 }
 )
 
-module.exports = mongoose.model('Blog',BlogSchema);
+module.exports = mongoose.model('Blog',BlogSchema);//mongoose model name=Blog created by compiling BlogSchema using mongoose.module()
+//model is an interface to the database , allows us to query data in collection
+//Once the model is created, we can use it to perform CRUD (Create, Read, Update, Delete) operations on the blogs collection in the MongoDB database.
