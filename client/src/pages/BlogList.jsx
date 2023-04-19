@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 import BlogCard from '../components/BlogCard'
 
 export default function BlogList(){
-    const {getBlogs,toasts,clearErrors,blogs} = useBlog();
+    const {getBlogs,toasts,clearErrors,blogs,clearCurrentBlog} = useBlog();
     const navigate = useNavigate();
     const [myBlogs,setMyBlogs] = useState([]);
 
@@ -32,17 +32,20 @@ export default function BlogList(){
             });
             clearErrors()
         }
-    })
+    },[toasts, clearErrors,blogs, getBlogs])
+
+    const onCreateNewBlog = () => {
+        clearCurrentBlog();
+        navigate('/newBlog')
+    }
+
     return(
         <MainContainer>
            <Container maxWidth="lg" sx={{py: 1,my:1}}>
                 <Grid container spacing={2}>
                     <Grid item xs = {false} md={3}>
                         
-                            <Stack spacing={2} sx={{display: 'flex'}} direction='row'>
-                                <Box sx={{flexGrow: 1}} />
-                                <Button fullWidth={false} onClick={()=> navigate('/newblog')}>Create Blog</Button>
-                            </Stack>
+                            
 
                             <List sx={{backgroundColor: 'silver', borderRadius: 5, mt: 3}}>
                                 {myBlogs?.map(blog=> (
@@ -59,6 +62,11 @@ export default function BlogList(){
                     </Grid>
 
                     <Grid item xs={12} md={9}>
+                   
+                                <Box sx={{flexGrow: 1}} >
+                                <Button fullWidth={false} onClick={onCreateNewBlog}>Create Blog</Button>
+                                </Box>
+                            
                             <Masonry columns={2}>
                                     {myBlogs?.map(blog=> (
                                         <BlogCard blog={blog} key={blog._id} />
