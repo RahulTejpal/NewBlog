@@ -3,7 +3,7 @@ import {Link, Typography} from '@mui/material'
 
 export default function Copyright(){
     return (
-        <Typography variant="body2" color="textSecondary" align="center">
+        <Typography variant="body2" color="primary" align="center">
             {'Copyright ©'}
             <Link color="inherit" href='/'>Rahul Tejpal</Link>{' '}
             {new Date().getFullYear()}{'.'}

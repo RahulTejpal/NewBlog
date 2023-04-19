@@ -134,15 +134,15 @@ export default function PrimarySearchAppBar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
+            sx={{color: 'white', display: { xs: 'none', sm: 'block' } }}
           >
-            Demo Blog
+            Blogs
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
           {authenticated.map(page => (
                         <Button key={page} variant='text'
-                        sx={{my: 2,color: 'white', display: 'block'}}
+                        sx={{my: 2, display: 'block'}}
                         onClick={() => navigate(`/${page.toLowerCase()}`)}>    
                             {page}
                 </Button>

@@ -15,7 +15,7 @@ export default function BlogCard(props) {
     <Card variant='shaded'>
       <CardContent>
         <Typography variant='h6'>
-          {props.blog.title}
+          {truncateString(props.blog.title,40)}
         </Typography>
         <Typography color='text.secondary'>
             {truncateString(props.blog.content,100)}
