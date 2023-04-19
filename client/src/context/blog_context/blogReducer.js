@@ -6,6 +6,7 @@ export default (state,action) => {
             let blogs = state.blogs ? state.blogs :[]; //checks if the state.blogs array exists, and if not, sets it to an empty array.
             return{
                 ...state,
+                blogCreated: true,
                 currentBlog: action.payload,
                 blogs: [...blogs,action.payload]
             }
@@ -45,7 +46,12 @@ export default (state,action) => {
             return{
                 ...state,
                 toasts: null
-            }   
+            }  
+        case ActionTypes.CLEAR_CURRENT_BLOG:
+            return{
+                    ...state,
+                    currentBlog: null
+                }     
             
         case ActionTypes.CLEAR_BLOGS:
                 return{

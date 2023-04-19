@@ -10,6 +10,7 @@ export default function BlogState(props){
         blogs: null,
         currentBlog: null,
         toasts: null,
+        blogCreated: false
     }
 
     const [state,dispatch] = useReducer(blogReducer,initialState);
@@ -106,7 +107,11 @@ export default function BlogState(props){
         }
     }
 
-    const clearErrors = async () => {}
+    const clearErrors = async () => {
+        dispatch({
+            type: ActionTypes.CLEAR_ERRORS,
+        })
+    }
 
     const clearBlogs = async () => {
         dispatch({
@@ -114,13 +119,18 @@ export default function BlogState(props){
         })
     }
 
-
+    const clearCurrentBlog = () =>{
+        dispatch({type: ActionTypes.CLEAR_CURRENT_BLOG})
+    }
 
     return(
         <BlogContext.Provider value={{
             blogs: state.blogs,
             currentBlog: state.currentBlog,
             toasts: state.toasts,
+            blogCreated: state.blogCreated,
+
+            clearCurrentBlog,
             getBlogs,
             getBlogById,
             createBlog,

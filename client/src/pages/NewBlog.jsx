@@ -21,7 +21,7 @@ export default function NewBlog(){
     const navigate = useNavigate()
 
     const [newBlog, setNewBlog] = useState({title:'',content: ''});
-    const {toasts,clearErrors,createBlog,blogs,getBlogs} = useBlog();
+    const {toasts,clearErrors,createBlog,blogs,getBlogs, clearCurrentBlog, blogCreated,currentBlog} = useBlog();
     const [onGenerate, setOnGenerate] = useState(false);//default value of checkbox
 
 
@@ -35,7 +35,12 @@ export default function NewBlog(){
             })
             clearErrors()
         }
-    },[toasts,clearErrors,blogs,getBlogs]);
+
+        if(blogCreated){
+            const id = currentBlog._id
+            navigate(`/blogs/${id}`)
+        }
+    },[toasts,clearErrors,blogs,getBlogs,blogCreated,currentBlog,navigate]);
 
     const handleSave = () => {
         if(newBlog.title.length>0 && newBlog.content.length>0){
