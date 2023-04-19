@@ -94,52 +94,70 @@ export default function NewBlog(){
                         label='Auto Generate' />
                     </Grid>
 
-                    <Grid item xs={12} container spacing={2}>
-                        <Grid item xs={12} lg={4}>
-                            <Typography>Words Per Sentence</Typography>
-                            <Slider
-                                marks={[
-                                    {value: loremOptions.minWordPerSentence, label: loremOptions.minWordPerSentence},
-                                    {value: loremOptions.maxWordPerSentence, label: loremOptions.maxWordPerSentence},
-                                ]}
-                                min={loremOptions.minWordPerSentence}
-                                max={loremOptions.maxWordPerSentence}
-                                value={loremOptions.wordPerSentence}
-                                onChange={(e,value) => setLoremOptions({... loremOptions, wordPerSentence: value})} //to be able to move the slider
-                            />
-                        </Grid>
+                    <Transition timeout={1000} in={onGenerate} mountOnEnter unmountOnExit
+                        onEntering={(node)=> {
+                            gsap.from(node,{
+                                y: -50,
+                                autoAlpha: onGenerate ? 1:0,
+                                duration: 0.5
+                            })
+                        }}
+                        addEndListener={(node, done) =>{
+                            gsap.to(node,{
+                                y: onGenerate ? 0: -50,
+                                autoAlpha: onGenerate ? 1 : 0,
+                                onComplete: done
+                            })
+                        }}
+                    >   
+                        <Grid item xs={12} container spacing={2}>
+                            <Grid item xs={12} lg={4}>
+                                <Typography>Words Per Sentence</Typography>
+                                <Slider
+                                    marks={[
+                                        {value: loremOptions.minWordPerSentence, label: loremOptions.minWordPerSentence},
+                                        {value: loremOptions.maxWordPerSentence, label: loremOptions.maxWordPerSentence},
+                                    ]}
+                                    min={loremOptions.minWordPerSentence}
+                                    max={loremOptions.maxWordPerSentence}
+                                    value={loremOptions.wordPerSentence}
+                                    onChange={(e,value) => setLoremOptions({... loremOptions, wordPerSentence: value})} //to be able to move the slider
+                                />
+                            </Grid>
 
-                        <Grid item xs={12} lg={4}>
-                            <Typography>Sentences Per Paragraph</Typography>
-                            <Slider
-                                marks={[
-                                    {value: loremOptions.minSentencePerParagraph, label: loremOptions.minSentencePerParagraph},
-                                    {value: loremOptions.maxSentencePerParagraph, label: loremOptions.maxSentencePerParagraph},
-                                ]}
-                                min={loremOptions.minSentencePerParagraph}
-                                max={loremOptions.maxSentencePerParagraph}
-                                value={loremOptions.sentencePerParagraph}
-                                onChange={(e,value) => setLoremOptions({... loremOptions, sentencePerParagraph: value})} //to be able to move the slider
-                            />
-                        </Grid>
+                            <Grid item xs={12} lg={4}>
+                                <Typography>Sentences Per Paragraph</Typography>
+                                <Slider
+                                    marks={[
+                                        {value: loremOptions.minSentencePerParagraph, label: loremOptions.minSentencePerParagraph},
+                                        {value: loremOptions.maxSentencePerParagraph, label: loremOptions.maxSentencePerParagraph},
+                                    ]}
+                                    min={loremOptions.minSentencePerParagraph}
+                                    max={loremOptions.maxSentencePerParagraph}
+                                    value={loremOptions.sentencePerParagraph}
+                                    onChange={(e,value) => setLoremOptions({... loremOptions, sentencePerParagraph: value})} //to be able to move the slider
+                                />
+                            </Grid>
 
-                        <Grid item xs={12} lg={4}>
-                            <Typography>Paragraphs Per Blog</Typography>
-                            <Slider
-                                marks={[
-                                    {value: loremOptions.minParagraphPerBlog, label: loremOptions.minParagraphPerBlog},
-                                    {value: loremOptions.maxParagraphPerBlog, label: loremOptions.maxParagraphPerBlog},
-                                ]}
-                                min={loremOptions.minParagraphPerBlog}
-                                max={loremOptions.maxParagraphPerBlog}
-                                value={loremOptions.paragraphPerBlog}
-                                onChange={(e,value) => setLoremOptions({... loremOptions, paragraphPerBlog: value})} //to be able to move the slider
-                            />
+                            <Grid item xs={12} lg={4}>
+                                <Typography>Paragraphs Per Blog</Typography> 
+                                <Slider
+                                    marks={[
+                                        {value: loremOptions.minParagraphPerBlog, label: loremOptions.minParagraphPerBlog},
+                                        {value: loremOptions.maxParagraphPerBlog, label: loremOptions.maxParagraphPerBlog},
+                                    ]}
+                                    min={loremOptions.minParagraphPerBlog}
+                                    max={loremOptions.maxParagraphPerBlog}
+                                    value={loremOptions.paragraphPerBlog}
+                                    onChange={(e,value) => setLoremOptions({... loremOptions, paragraphPerBlog: value})} //to be able to move the slider
+                                />
+                            </Grid>
+                            <Grid item>
+                                <Button fullWidth={false} onClick={handleGenerate}>Generate Blog</Button>
+                            </Grid>
                         </Grid>
-                        <Grid item>
-                            <Button fullWidth={false} onClick={handleGenerate}>Generate Blog</Button>
-                        </Grid>
-                    </Grid>
+                    </Transition> 
+
 
                     <Grid item xs={12}>
                         <TextField
