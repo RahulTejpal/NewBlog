@@ -10,39 +10,74 @@ import MainContainer from '../components/MainContainer'
 //---------------------end region--------------------
 
 export default function Profile(){
+    const {currentUser, getProfile,updateUser} = useAuth()            //displaying our user data || deconstructing from useAuth()
     const [profile,setProfile] = useState({})//variable to hold our user
+    const [isDisabled, setIsDisabled]  = useState(true)
+    const [temp,setTemp] = useState(null) //temp var for cancel button
+
+    useEffect(() => {
+        if(!currentUser){
+            getProfile();
+        }
+
+        if(currentUser){
+            setProfile(currentUser)
+        }
+    },[currentUser, getProfile])
+
+   
+    const handleDisabled = e => {
+        setIsDisabled(false)
+        setTemp(profile) //holding temporary copy of our profile
+    }
+    const handleCancel = e => {
+        setIsDisabled(true)
+        setProfile(temp) //if hitting cancel button then reverting back to temp profile ,i.e, profile before edit
+        setTemp(null)
+    }
+
+    const handleUpdate = e => {
+        setIsDisabled(true)
+        updateUser(profile)
+    }
 
     return(
         
         <MainContainer>
             <Container maxWidth="md" sx={{my: 3}}>
-                <Stack spacing={2}>
+                <Stack spacing={2}> 
+                   {isDisabled ? 
                     <Box sx={{display: 'flex', justifyContent:'flex-end'}}>
-                        <Button>Edit</Button>
+                        <Button onClick={handleDisabled}>Edit</Button>
                     </Box>
+                    : null
+                   }
 
                     <TextField 
                         label="First Name" name='firstName'
-                        value={profile.firstName}
+                        value={profile.firstName} disabled={isDisabled}
                         onChange={(e)=> setProfile({...profile, firstName: e.target.value})}
                     />
 
                     <TextField 
                         label="Last Name" name='lastName'
-                        value={profile.lastName}
+                        value={profile.lastName} disabled={isDisabled}
                         onChange={(e)=> setProfile({...profile, lastName: e.target.value})}
                     />
 
                     <TextField 
                         label="Location" name='location'
-                        value={profile.location}
+                        value={profile.location} disabled={isDisabled}
                         onChange={(e)=> setProfile({...profile, location: e.target.value})}
                     />
 
+                    {!isDisabled ?
                     <Stack spacing={2} direction='row'>
-                        <Button>Update</Button>
-                        <Button>Cancel</Button>
+                        <Button onClick={handleUpdate}>Update</Button>
+                        <Button onClick={handleCancel}>Cancel</Button> 
                     </Stack>
+                    : null
+                    }
 
                 </Stack>
             </Container>

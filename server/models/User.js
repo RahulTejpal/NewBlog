@@ -19,6 +19,9 @@ const UserSchema = new mongoose.Schema ({ //defining the structure of a User doc
     password: {
         type: String,
         required: true,
+    },
+    location: {
+        type: String
     }
 },{
     timestamps: true, //adds createdAt and updatedAt fields to the User doc that are automatically updated whenever the doc is created or updated.

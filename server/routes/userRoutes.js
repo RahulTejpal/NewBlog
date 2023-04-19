@@ -7,7 +7,8 @@ const auth = require('../middleware/authMiddleware'); //handle authentication mi
 const{ //importing funcns from userController
     registerUser,
     loginUser,
-    getProfile
+    getProfile,
+    updateUser
 } = require('../controllers/userController')
 
 //used to define a route for registering a user with the /register URL path. 
@@ -16,5 +17,7 @@ router.post('/register',registerUser); //used in url of thunderclient
 router.post('/login',loginUser);  //used in url of thunderclient
 
 router.get('/profile',[auth],getProfile);   //here we are privatizing the get profile using [auth] and only for authenticated users
+
+router.put('/:id',[auth],updateUser);
 
 module.exports = router;
