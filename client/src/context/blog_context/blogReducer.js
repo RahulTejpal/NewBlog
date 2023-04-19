@@ -6,6 +6,7 @@ export default (state,action) => {
             let blogs = state.blogs ? state.blogs :[]; //checks if the state.blogs array exists, and if not, sets it to an empty array.
             return{
                 ...state,
+                currentBlog: action.payload,
                 blogs: [...blogs,action.payload]
             }
         case ActionTypes.GET_BLOGS_SUCCESS:
