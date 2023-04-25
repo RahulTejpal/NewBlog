@@ -19,7 +19,7 @@ export default function Register(){
     const  {registerUser, clearErrors, toasts, isAuthenticated} = useAuth();
     const navigate = useNavigate()
     const [user,setUser] = useState({
-        firstName: 'Peter', lastName: 'Pan',email: 'peterpan@mail.com',password: 'Password123',confirmPassword: 'Password123',
+        firstName: '', lastName: '',email: '',password: '',confirmPassword: '',
     })
 
     const [showPassword,setShowPassword] = useState({
@@ -27,13 +27,14 @@ export default function Register(){
     })
 
     useEffect(() => {if(isAuthenticated) navigate('/blogs')
-    if(toasts){
-        toasts.forEach(ele=> {
-            toast(ele.message,{
-                type: ele.type
-            })
-        });
-    }
+    // if(toasts){
+    //     toasts.forEach(ele=> {
+    //         toast(ele.message,{
+    //             type: ele.type
+    //         })
+    //     });
+    //     clearErrors();
+    // }
 }, [toasts,isAuthenticated,clearErrors,navigate])
 
     const handleRegister = () =>{

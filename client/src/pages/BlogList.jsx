@@ -26,12 +26,12 @@ export default function BlogList(){
             setMyBlogs(blogs)
         }
 
-        if(toasts){
-            toasts.forEach(ele => {
-                toast(ele.message, {type: ele.type})
-            });
-            clearErrors()
-        }
+        // if(toasts){
+        //     toasts.forEach(ele => {
+        //         toast(ele.message, {type: ele.type})
+        //     });
+        //     clearErrors();
+        // }
     },[toasts, clearErrors,blogs, getBlogs])
 
     const onCreateNewBlog = () => {
@@ -66,7 +66,7 @@ export default function BlogList(){
                     <Grid item xs={12} md={9}>
                    
                                 <Box sx={{flexGrow: 1}} >
-                                <Button fullWidth={false} onClick={onCreateNewBlog}>Create Blog</Button>
+                                <Button fullWidth={false} onClick={onCreateNewBlog} sx={{ mb: 3}}>Create Blog</Button>
                                 </Box>
                             
                             <Masonry columns={2}>

@@ -1,0 +1,16 @@
+2023-04-24T09:35:30.337Z  info: loginUser called
+2023-04-24T09:35:30.457Z  info: User Logged in
+2023-04-24T09:35:32.870Z  info: getBlogs called
+2023-04-24T09:35:32.939Z  info: blogs succesfully fetched
+2023-04-24T09:35:32.944Z  info: getBlogs called
+2023-04-24T09:35:32.979Z  info: blogs succesfully fetched
+2023-04-24T09:35:46.468Z  info: getBlogById called
+2023-04-24T09:35:46.534Z  info: Blog successfully fetched
+2023-04-24T09:35:46.538Z  info: getBlogById called
+2023-04-24T09:35:46.571Z  info: Blog successfully fetched
+2023-04-24T09:37:28.588Z  info: getBlogById called
+2023-04-24T09:37:28.650Z  info: Blog successfully fetched
+2023-04-24T09:37:28.654Z  info: getBlogById called
+2023-04-24T09:37:28.687Z  info: Blog successfully fetched
+2023-04-24T09:37:30.460Z  info: deleteBlog called
+2023-04-24T09:37:30.541Z  info: Blog Deleted

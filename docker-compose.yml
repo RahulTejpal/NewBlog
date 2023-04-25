@@ -1,0 +1,29 @@
+#most commonly used docker composed file
+version: '3'
+
+#explaining all the services that our docker image is performing
+services:
+  api-server:
+    volumes:
+      - ./logs:/usr/src/app/logs
+    build: ./server
+    ports:
+      - "5000:5000"
+    networks:
+      - mern-app
+    container_name: server
+    command: npm start
+  react-app:
+    build: ./client
+    image: client
+    #so that docker image could be accessed from the terminal
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    networks:
+      - mern-app
+    command: npm start
+networks:
+  mern-app:
+    #frontend and backend can use each other's services 
+    driver: bridge

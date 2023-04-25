@@ -2,11 +2,18 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs'); //encrypts the password => password hashing
 const jwt = require('jsonwebtoken');
 const colors = require('colors');
+const logger = require("../utils/logger");
 
 // @route   POST api/users/register
 // @desc    Register a user
 // @access  Public
 const registerUser = async (req,res) => { //asynchronous funcn handling logic for registering new user -> 2 parameters in funcn = request & response
+    
+    logger.log({
+        level: "info",
+        message: "registerUser called",
+    });
+    
     try{
         const {firstName,lastName, email, password} = req.body;//incoming req object is parsed to extract the user's registration details such as firstName, lastName, email, and password
         let toasts = []; //empty array initially declared to hold messages that can be displayed to the user as alerts/notification
@@ -53,11 +60,22 @@ const registerUser = async (req,res) => { //asynchronous funcn handling logic fo
         }
         )
 
+
+        logger.log({
+            level: "info",
+            message: "User registered",
+        });
+
         
     }
     catch(err){
         console.error(`Error: ${err.message}`.bgRed.underline.bold);
         res.status(500).send('Server Error');
+
+        logger.log({
+            level: "info",
+            message: "Couldn't register user",
+        });
     }
 }
 
@@ -65,6 +83,11 @@ const registerUser = async (req,res) => { //asynchronous funcn handling logic fo
 //@desc Register a user
 //@access Public
 const loginUser = async (req,res) => {
+
+    logger.log({
+        level: "info",
+        message: "loginUser called",
+    });
     try{
         const {email,password} = req.body;
         let toasts = [];
@@ -97,11 +120,21 @@ const loginUser = async (req,res) => {
         }
         )
 
+        logger.log({
+            level: "info",
+            message: "User Logged in",
+        });
+
         
     }
     catch(err){
         console.error(`Error: ${err.message}`.bgRed.underline.bold);
         res.status(500).send('Server Error');
+
+        logger.log({
+            level: "info",
+            message: "Couldn't Log in",
+        });
     }
 }
 
@@ -110,6 +143,11 @@ const loginUser = async (req,res) => {
 //@access Private
 const getProfile = async (req,res) => { //getting the user profile through the token & user only have access to their own profile
     
+    logger.log({
+        level: "info",
+        message: "getProfile called",
+    });
+
     try{
         //retrieves user from db(excluding password,__v,createdAt,updatedAt)
         //User.findById(req.user.id) retrieves a user document from the database using the user ID stored in the req.user object
@@ -118,15 +156,30 @@ const getProfile = async (req,res) => { //getting the user profile through the t
 
         if(!user) return res.status(404).json([{message: 'User does not exist', type: 'error'}]);
         res.json(user);
+
+        logger.log({
+            level: "info",
+            message: "Profile fetched",
+        });
     }
     catch(err){
         console.error(`Error: ${err.message}`.bgRed.underline.bold);
         res.status(500).send('Server Error');
+
+        logger.log({
+            level: "info",
+            message: "Couldn't fetch Profile",
+        });
     }
 
 }
 
 const updateUser = async (req,res) => {
+
+    logger.log({
+        level: "info",
+        message: "updateUser called",
+    });
     try{
         const userId = req.params.id;
 
@@ -140,10 +193,20 @@ const updateUser = async (req,res) => {
 
         res.json(user);
 
+        logger.log({
+            level: "info",
+            message: "User Updated",
+        });
+
     }
     catch(err){
         console.error(`ERROR: ${err.message}`.bgRed.underline.bold);
         res.status(500).send('Server Error');
+
+        logger.log({
+            level: "info",
+            message: "Couldn't update user",
+        });
     }
 }
 

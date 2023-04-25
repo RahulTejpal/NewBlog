@@ -17,7 +17,7 @@ export default function BlogDetail(){
     const {id} = useParams();
     const navigate = useNavigate();
     const {blogs, currentBlog, getBlogById, 
-        toasts, clearToasts, deleteBlog, updateBlog,
+        toasts, clearErrors, deleteBlog, updateBlog,
         getBlogs
     } = useBlog();
 
@@ -43,10 +43,11 @@ export default function BlogDetail(){
         // if(toasts){
         //     toasts.forEach(ele => {
         //         toast(ele.message, {type: ele.type})
-        //     })
+        //     });
+        //     clearErrors();
         // }
         
-    }, [currentBlog, id, toasts, clearToasts, getBlogById, blogs, getBlogs])
+    }, [currentBlog, id, toasts, clearErrors, getBlogById, blogs, getBlogs])
 
     const handleDelete = () => {
         deleteBlog(blog._id);

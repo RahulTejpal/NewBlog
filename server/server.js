@@ -3,11 +3,11 @@ const colors=require('colors');
 const mongoose=require('mongoose'); //helps in connecting to mongodb database
 const PORT=process.env.PORT || 5000; //server port =5000
 const dotenv=require('dotenv').config(); //dotenv package is used to load environment variables from a .env file into process.env.
-
+const cors=require('cors')
 const app=express();
 
 app.use(express.json({extended:false})); //FOR MIDDLEWARE: An instance of Express is created and a middleware function is added to parse incoming requests with JSON payloads. This middleware function will populate the req.body property with the parsed JSON data.
-
+app.use(cors());
 const username=process.env.DB_USERNAME;//environment variable from .env file
 const password=process.env.DB_PASSWORD;//environment variable from .env file
 const URL=`mongodb+srv://${username}:${password}@blogapp.hlgonf7.mongodb.net/?retryWrites=true&w=majority`; // using environment variables to hide sensitive info like dab credentials(hardcoding them can pose security issues if code is ever shared or exposed)

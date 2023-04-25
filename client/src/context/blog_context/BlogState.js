@@ -24,7 +24,7 @@ export default function BlogState(props){
 
     const getBlogs = async () => { //get all blogs
         try{
-            const res = await axios.get('/api/blogs',config);
+            const res = await axios.get('http://localhost:5000/api/blogs',config);
             dispatch({
                 type: ActionTypes.GET_BLOGS_SUCCESS,
                 payload: res.data
@@ -42,7 +42,7 @@ export default function BlogState(props){
 
     const getBlogById = async (blogId) => { //get a particular blog
         try{
-            const res = await axios.get(`/api/blogs/${blogId}`,config);
+            const res = await axios.get(`http://localhost:5000/api/blogs/${blogId}`,config);
             dispatch({
                 type: ActionTypes.GET_BLOG_BY_ID,
                 payload: res.data
@@ -58,7 +58,7 @@ export default function BlogState(props){
 
     const createBlog = async (blogData) => {
         try{
-            const res = await axios.post('/api/blogs',blogData,config);
+            const res = await axios.post('http://localhost:5000/api/blogs',blogData,config);
             dispatch({
                 type: ActionTypes.NEW_BLOG_SUCCESS,
                 payload: res.data
@@ -75,7 +75,7 @@ export default function BlogState(props){
 
     const updateBlog = async (blogData) => {
         try{
-            const res = await axios.put(`/api/blogs/${blogData._id}`,blogData,config);//gonna get blog id from blogData, config we have token used to authenticate
+            const res = await axios.put(`http://localhost:5000/api/blogs/${blogData._id}`,blogData,config);//gonna get blog id from blogData, config we have token used to authenticate
             dispatch({
                 type: ActionTypes.UPDATE_BLOG,
                 payload: res.data
@@ -92,7 +92,7 @@ export default function BlogState(props){
 
     const deleteBlog = async (blogId) => {
         try{
-            const res = await axios.delete(`/api/blogs/${blogId}`,config);
+            const res = await axios.delete(`http://localhost:5000/api/blogs/${blogId}`,config);
             dispatch({
                 type: ActionTypes.BLOG_DELETE,
                 payload: res.data
