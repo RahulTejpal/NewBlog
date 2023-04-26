@@ -7,7 +7,7 @@
   tasks:
     - name: Copy Docker Compose file from host machine to remote host
       copy:
-        src: /home/rahul/Desktop/NewBlog/docker-compose.yml
+        src: docker-compose.yml
         dest: ./
 
     # - name: Replace Jinja2 template with decrypted environment variables into env.yaml file
