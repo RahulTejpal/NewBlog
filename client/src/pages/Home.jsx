@@ -18,16 +18,30 @@ import {useAuth} from '../middleware/contextHooks'
 
 export default function Home() {
     const {loginUser, clearErrors, toasts, isAuthenticated} = useAuth();
+    const [imageUrl, setImageUrl] = useState('');
+
     const navigate = useNavigate()
     const [user, setUser] = useState({
-        firstName: 'Peter', lastName: 'Pan', 
-        email: 'peterpan@mail.com', password: 'Password123', 
-        confirmPassword: 'Password123'
+        email: '', password: '',
     })
 
     const [showPassword, setShowPassword] = useState(false)
 
     useEffect(() => {
+
+        async function getRandomImage() {
+            try {
+              const response = await axios.get('https://api.unsplash.com/search/photos?page=1&query=blog&client_id=K8FtRr04AKsjkBpydAJwz2tJr_vmao0TxuKU65WxYGc')
+              setImageUrl(response.data.results[Math.floor(Math.random()*9)+1].urls.regular);
+            } catch (error) {
+              console.log(error);
+            }
+          }
+      
+          
+      
+          getRandomImage();
+
         if(isAuthenticated) navigate('/blogs')
 
         // if(toasts){
@@ -56,7 +70,7 @@ export default function Home() {
                 item xs={false}
                 sm={4} md={7}
                 sx={{
-                    backgroundImage: 'url(https://source.unsplash.com/random)',
+                    backgroundImage: `url(${imageUrl})`,
                     backgroundRepeat: 'no-repeat',
                     backgroundColor: (t) =>
                     t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
