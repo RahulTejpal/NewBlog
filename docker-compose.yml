@@ -6,7 +6,7 @@ services:
   api-server:
     volumes:
       - ./logs:/usr/src/app/logs
-    build: ./server
+    build: /home/rahul/Desktop/NewBlog/server
     ports:
       - "5000:5000"
     networks:
@@ -14,7 +14,7 @@ services:
     container_name: server
     command: npm start
   react-app:
-    build: ./client
+    build: /home/rahul/Desktop/NewBlog/client
     image: client
     #so that docker image could be accessed from the terminal
     stdin_open: true
