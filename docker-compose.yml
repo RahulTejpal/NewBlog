@@ -1,29 +1,78 @@
-#most commonly used docker composed file
+# #most commonly used docker composed file
+# version: '3'
+
+# #explaining all the services that our docker image is performing
+# services:
+#   api-server:
+#     volumes:
+#       - ./logs:/usr/src/app/logs
+#     build: /home/rahul/Desktop/NewBlog/server
+#     ports:
+#       - "5000:5000"
+#     networks:
+#       - mern-app
+#     container_name: server
+#     command: npm start
+#   react-app:
+#     build: /home/rahul/Desktop/NewBlog/client
+#     image: client
+#     #so that docker image could be accessed from the terminal
+#     stdin_open: true
+#     ports:
+#       - "3000:3000"
+#     networks:
+#       - mern-app
+#     command: npm start
+# networks:
+#   mern-app:
+#     #frontend and backend can use each other's services 
+#     driver: bridge
+
+
+
+ 
+
+# docker version comonlly used
+# this specifies the version of docker compose file
 version: '3'
 
-#explaining all the services that our docker image is performing
+# this  tell about all the services you want to start(like here we have 2 Dockerfile) 
 services:
+  # this is the name of the backend service name (can give any name)
   api-server:
-    volumes:
-      - ./logs:/usr/src/app/logs
-    build: /home/rahul/Desktop/NewBlog/server
+    build:
+      context: /home/rahul/Desktop/NewBlog/server
+      dockerfile: Dockerfile
+    image: rahultejpal/blog_app_backend
     ports:
       - "5000:5000"
+    volumes:
+      - ./logs:/usr/src/app/logs  
     networks:
       - mern-app
-    container_name: server
+    container_name: blog-app-server-container
     command: npm start
+
+ 
+
+  # this is front end service name
   react-app:
-    build: /home/rahul/Desktop/NewBlog/client
-    image: client
-    #so that docker image could be accessed from the terminal
+    build:
+      context: /home/rahul/Desktop/NewBlog/client
+      dockerfile: Dockerfile
+    image: rahultejpal/blog_app_frontend
+    # to access directly from the terminal we are setting this to true
     stdin_open: true
     ports:
       - "3000:3000"
+
     networks:
       - mern-app
+    container_name: blog-app-client-container
     command: npm start
+    
+
+# to set the network between the services 
 networks:
   mern-app:
-    #frontend and backend can use each other's services 
     driver: bridge
