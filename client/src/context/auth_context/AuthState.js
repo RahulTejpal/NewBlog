@@ -2,16 +2,18 @@ import { createContext, useReducer } from "react";
 import axios from 'axios';
 import authReducer  from "./authReducer";
 import * as ActionTypes from '../ContextActions';
-
+import { PORT } from "../../components/Constants";
 export const AuthContext = createContext();
+
+
 
 export default function AuthState(props){
 
     const initialState = { //defines the initial state of authentication context including the following properties
-        token: localStorage.getItem('token'), 
-        currentUser: null,
-        toasts: null,
-        isAuthenticated: null,
+        token: localStorage.getItem('token'), //token property stores the authentication token
+        currentUser: null, //currentUser property stores information about the currently logged in user
+        toasts: null, //toasts property stores messages to be displayed to the user
+        isAuthenticated: null, //isAuthenticated property stores a boolean value indicating whether the user is currently authenticated or not
     };
 
     //authReducer called everytime an action is dispatched
@@ -28,8 +30,8 @@ export default function AuthState(props){
 
     const registerUser = async (userData) => {
         try{
-            //const res = await axios.post('http://192.168.49.2:30786/api/users/register', userData, config);//POST req to backend server at the /api/users/register endpoint with the provided userData and config.
-            const res = await axios.post('http://localhost:5000/api/users/register', userData, config);
+            const res = await axios.post(`http://192.168.49.2:${PORT}/api/users/register`, userData, config);//POST req to backend server at the /api/users/register endpoint with the provided userData and config.
+            //const res = await axios.post('http://localhost:5000/api/users/register', userData, config);
             dispatch({
                 type: ActionTypes.REGISTER_SUCCESS, //if request successful funcn dispatches this action
                 payload: res.data // with response data as payload
@@ -46,8 +48,8 @@ export default function AuthState(props){
 
     const loginUser = async (userData) => {
         try{
-            //const res = await axios.post('http://192.168.49.2:30786/api/users/login', userData, config);
-            const res = await axios.post('http://localhost:5000/api/users/login', userData, config);
+            const res = await axios.post(`http://192.168.49.2:${PORT}/api/users/login`, userData, config);
+            //const res = await axios.post('http://localhost:5000/api/users/login', userData, config);
             dispatch({
                 type: ActionTypes.LOGIN_SUCCESS,
                 payload: res.data
@@ -76,8 +78,8 @@ export default function AuthState(props){
 
     const getProfile = async () =>{
         try{
-            //const res = await axios.get('http://192.168.49.2:30786/api/users/profile', config); //we are sending the config because we are also sending the token to the header
-            const res = await axios.get('http://localhost:5000/api/users/profile', config);
+            const res = await axios.get(`http://192.168.49.2:${PORT}/api/users/profile`, config); //we are sending the config because we are also sending the token to the header
+            //const res = await axios.get('http://localhost:5000/api/users/profile', config);
             dispatch({
                 type: ActionTypes.SET_CURRENT_USER,
                 payload: res.data
@@ -94,8 +96,8 @@ export default function AuthState(props){
 
     const updateUser = async (userData) =>{
         try{
-            //const res = await axios.put(`http://192.168.49.2:30786/api/users/${userData._id}`,userData, config); 
-            const res = await axios.put(`http://localhost:5000/api/users/${userData._id}`,userData, config); 
+            const res = await axios.put(`http://192.168.49.2:${PORT}/api/users/${userData._id}`,userData, config); 
+            //const res = await axios.put(`http://localhost:5000/api/users/${userData._id}`,userData, config); 
             dispatch({
                 type: ActionTypes.SET_CURRENT_USER,
                 payload: res.data
