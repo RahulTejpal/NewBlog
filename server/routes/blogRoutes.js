@@ -7,11 +7,14 @@ const{
     createBlog,
     updateBlog,
     deleteBlog,
-    getBlogById
+    getBlogById,
+    getAllBlogs
     
 } = require('../controllers/blogController')  //ROUTES ARE LINKED TO THEIR CORRESPONDING CONTROLLER FUNCTIONS
 
 //only authenticated users can access the routes
+
+router.get('/get-all-user-blogs',getAllBlogs);
 
 router.get('/',[auth],getBlogs);    //Fetch all blogs belonging to the authenticated user.
 

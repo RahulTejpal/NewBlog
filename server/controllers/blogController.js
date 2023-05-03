@@ -30,6 +30,17 @@ const getBlogs = async (req,res) => { //used to retrieve all blogs from database
     }
 }
 
+const getAllBlogs=async(req,res)=>{
+    try{
+        const blogs=await Blog.find({});
+        // console.log(blogs[1].title)
+        res.json(blogs);
+    }catch(error){
+        console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
+        res.status(500).send('Server Error');
+    }
+}
+
 const getBlogById = async (req,res) => { //tries to find single blog 
     logger.log({
         level: "info",
@@ -160,5 +171,6 @@ module.exports = {
     updateBlog,
     createBlog,
     getBlogs,
-    getBlogById
+    getBlogById,
+    getAllBlogs
 }
