@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Grid, Typography, Container, CssBaseline, Box, Avatar, Paper, AppBar,Toolbar,Button } from '@mui/material';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast, toasts } from 'react-toastify';
+import { PORT } from '../components/Constants';
 import axios from 'axios';
 
 export default function Home() {
@@ -9,7 +10,8 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/blogs/get-all-user-blogs')
+    //   .get('http://localhost:5000/api/blogs/get-all-user-blogs')
+      .get(`http://192.168.49.2:${PORT}/api/blogs/get-all-user-blogs`)
       .then((response) => {
         setBlogs(response.data);
       })
